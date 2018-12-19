@@ -1,0 +1,26 @@
+<div class="card" style="box-shadow: none">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">{{data.dialogTitle}}</h4>
+    </div>
+    <div class="card-body">
+        <div mat-dialog-content>
+            <mat-form-field><input matInput type="number" placeholder="Student ID"
+                                   [disabled]="data.isStdID" [(ngModel)]="data.stdID"></mat-form-field>
+            <mat-form-field><input matInput placeholder="Name" [(ngModel)]="data.name"></mat-form-field>
+            <mat-form-field><input matInput placeholder="School" [(ngModel)]="data.school"></mat-form-field>
+            <mat-form-field><input matInput type="number" placeholder="Intake Year" [(ngModel)]="data.intakeYear"></mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Date of Birth" [(ngModel)]=" data.dob">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions class="d-block">
+            <button [disabled]="!data.name || !data.stdID || !data.school || !data.intakeYear|| !data.dob"
+                    [mat-dialog-close]="data" cdkFocusInitial class="btn btn-danger pull-right" mat-button>
+                Submit
+            </button>
+            <button mat-button (click)="onNoClick()" class="btn pull-right">Cancel</button>
+        </div>
+    </div>
+</div>

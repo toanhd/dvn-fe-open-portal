@@ -1,0 +1,32 @@
+<div class="card" style="box-shadow: none">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">{{data.dialogTitle}}</h4>
+    </div>
+    <div class="card-body">
+        <div mat-dialog-content style="overflow-y: hidden">
+            <mat-form-field><input matInput type="number" placeholder="Mã Giảng Viên"
+                                   [disabled]="data.islecID" [(ngModel)]="data.lecID"></mat-form-field>
+            <mat-form-field><input matInput placeholder="Tên" [(ngModel)]="data.name"></mat-form-field>
+            <mat-form-field><input matInput placeholder="Khoa/Viện" [(ngModel)]="data.school"></mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Ngày Sinh" [(ngModel)]=" data.dob">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [checked]="data.isMoE" (change)="data.isMoE = !data.isMoE"/>
+                    <span class="form-check-sign"><span class="check"></span></span>
+                    Nhân viên Bộ Giáo dục và Đào tạo
+                </label>
+            </div>
+        </div>
+        <div mat-dialog-actions class="d-block">
+            <button [disabled]="!data.name || !data.lecID || !data.school || !data.dob"
+                    [mat-dialog-close]="data" cdkFocusInitial class="btn btn-danger pull-right" mat-button>
+                Submit
+            </button>
+            <button mat-button (click)="onNoClick()" class="btn pull-right">Cancel</button>
+        </div>
+    </div>
+</div>

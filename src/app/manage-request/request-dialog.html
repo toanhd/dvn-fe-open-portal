@@ -1,0 +1,50 @@
+<div class="card" style="box-shadow: none" *ngIf="!mailSpinnerLoad">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">{{data.dialogTitle}}</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" *ngIf="dataSource">
+            <table mat-table [dataSource]="dataSource" class="table">
+                <ng-container matColumnDef="courseID">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Mã Môn Học</th>
+                    <td mat-cell *matCellDef="let element"> {{element.courseID}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="courseName">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Tên Môn Học</th>
+                    <td mat-cell *matCellDef="let element"> {{element.courseName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="credit">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Số Tín chỉ</th>
+                    <td mat-cell *matCellDef="let element"> {{element.credit}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="gradeVal">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Điểm</th>
+                    <td mat-cell *matCellDef="let element"> {{element.gradeVal}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="semester">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary"> Học Kỳ</th>
+                    <td mat-cell *matCellDef="let element"> {{element.semester}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <div>
+            <p>{{queryMess}}</p>
+        </div>
+        <mat-spinner [diameter]="40" [color]="'warn'" style="margin:0 auto;"
+                     *ngIf="spinnerLoad"></mat-spinner>
+        <div mat-dialog-actions class="d-block">
+            <button *ngIf="transcript" mat-button (click)="onMailing()" class="btn pull-right btn-warning">Gửi Mail</button>
+            <button mat-button (click)="onNoClick()" class="btn pull-right">Đóng</button>
+        </div>
+    </div>
+
+</div>
+<mat-spinner [diameter]="40" [color]="'warn'" style="margin:20px auto;"
+             *ngIf="mailSpinnerLoad"></mat-spinner>

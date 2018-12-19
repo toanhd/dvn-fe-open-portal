@@ -1,0 +1,135 @@
+<div class="main-content pt-5 mt-5 ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <img width="70px" src="/assets/img/dvn-logo.svg"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Xác thực bảng điểm</h4>
+                        <!--<p class="card-category">Chào mừng tới <b>Cổng thông tin xác thực bảng điểm trường Đại học Bách Khoa Hà Nội </b></p>-->
+                    </div>
+                    <div class="card-body" *ngIf="spinnerLoad">
+                        <mat-spinner [diameter]="40" [color]="'warn'" style="margin:0 auto;"
+                                     *ngIf="!dataSource || spinnerLoad"></mat-spinner>
+                    </div>
+                    <div class="card-body" *ngIf="!spinnerLoad">
+                        <p>Cổng thông xin giúp cho các doanh nghiệp tạo yêu cầu xác thực bảng điểm của sinh viên!</p>
+                        <p>Sau khi yêu cầu xác thực được xử lý, bảng điểm sinh viên sẽ được gửi tới địa chỉ được điền trong biểu mẫu dưới đây</p>
+                        <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Tên người yêu cầu" formControlName="requester">
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && requestForm.controls.requester.errors">
+                                        <p *ngIf="requestForm.controls.requester.errors.required">Tên người yêu cầu không được bỏ trống</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Tên Doanh nghiệp/Tổ chức" formControlName="company">
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && requestForm.controls.company.errors">
+                                        <p *ngIf="requestForm.controls.company.errors.required">Tên Doanh nghiệp/Tổ chức không được bỏ trống</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput type="email" placeholder="Email" formControlName="email">
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && requestForm.controls.email.errors">
+                                        <p *ngIf="requestForm.controls.email.errors.required">Email không được bỏ trống</p>
+                                        <p class="text-primary" *ngIf="requestForm.controls.email.errors.email">Email không đúng định dạng</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput type="number" placeholder="Mã sinh viên" formControlName="stdID">
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && requestForm.controls.stdID.errors">
+                                        <p *ngIf="requestForm.controls.stdID.errors.required">Mã sinh viên không được bỏ trống</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Tên sinh viên" formControlName="stdName">
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && requestForm.controls.stdName.errors">
+                                        <p *ngIf="requestForm.controls.stdName.errors.required">Tên sinh viên không được bỏ trống</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput type="number" placeholder="Khóa" formControlName="intakeYear">
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && requestForm.controls.intakeYear.errors">
+                                        <p *ngIf="requestForm.controls.intakeYear.errors.required">Khóa không được bỏ trống</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <!--<input matInput type="text" placeholder="Lý do" aria-label="Lý do">-->
+                                        <mat-select placeholder="Lý do" formControlName="reason">
+                                            <mat-option *ngFor="let reason of reasons" [value]="reason">
+                                                {{reason}}
+                                            </mat-option>
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && requestForm.controls.reason.errors">
+                                        <p *ngIf="requestForm.controls.reason.errors.required">Lý do không được bỏ trống</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Chi tiết lý do" formControlName="reasonDetail">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button [disabled]="this.requestForm.invalid" type="submit" class="btn btn-danger pull-right">Tạo yêu cầu</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
